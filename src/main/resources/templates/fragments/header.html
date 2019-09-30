@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" th:lang="${#locale.language}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="header_content" class="content-header">
+    <div class="content-search">
+        <i data-feather="search"></i>
+        <input type="search" class="form-control" placeholder="Search...">
+    </div>
+    <nav class="nav">
+        <a href="" class="nav-link"><i data-feather="help-circle"></i></a>
+        <a href="" class="nav-link"><i data-feather="grid"></i></a>
+        <a href="" class="nav-link"><i data-feather="align-left"></i></a>
+    </nav>
+</div><!-- content-header -->
+
+</body></html>

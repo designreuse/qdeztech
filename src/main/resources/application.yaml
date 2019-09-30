@@ -1,0 +1,30 @@
+
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/qdeztech?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: root
+  jpa:
+      hibernate:
+        ddl-auto: create
+      open-in-view: false
+      properties:
+        hibernate:
+          enable_lazy_load_no_trans: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: when_authorized
+flowable:
+  idm:
+    password-encoder: spring_delegating
+
+
+
