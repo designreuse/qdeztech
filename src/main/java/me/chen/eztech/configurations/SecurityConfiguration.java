@@ -31,8 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .antMatchers("/dashboard").hasRole("REST")
                 .and()
                     .csrf().disable()
-                .formLogin()
-                    .loginPage("/login").defaultSuccessUrl("/dashboard").permitAll()
+                .httpBasic()
                 .and()
                     .rememberMe().key("eztech-rememberme-session-key").tokenValiditySeconds(36000);
     }
