@@ -14,17 +14,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeRequests()
+//                .requestMatchers(EndpointRequest.to(InfoEndpoint.class, HealthEndpoint.class)).permitAll()
+//                .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ACTUATOR")
+//                .antMatchers("/*-api/**").hasRole("REST")
+//                .antMatchers("/dashboard").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
+//                .csrf().disable()
+//                .httpBasic();
+
         http
                 .authorizeRequests()
-                .requestMatchers(EndpointRequest.to(InfoEndpoint.class, HealthEndpoint.class)).permitAll()
-                .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ACTUATOR")
-                .antMatchers("/*-api/**").hasRole("REST")
-                .antMatchers("/dashboard").permitAll()
-                .anyRequest().authenticated()
+                    .antMatchers("/dashboard").hasRole("REST")
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
-                .csrf().disable()
-                .httpBasic();
+                    .csrf().disable()
+                .formLogin()
+                    .loginPage("/login").defaultSuccessUrl("/dashboard").permitAll()
+                .and()
+                    .rememberMe().key("eztech-rememberme-session-key").tokenValiditySeconds(36000);
     }
 
 }
