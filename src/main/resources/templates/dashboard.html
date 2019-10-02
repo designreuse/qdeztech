@@ -5,6 +5,7 @@
       layout:decorate="~{layouts/dashboard}">
 <head>
     <meta charset="utf-8"/>
+    <script th:src="@{/page/js/dashboard.js}"></script>
 </head>
 <body>
 
@@ -45,13 +46,13 @@
                                 </div><!-- media-body -->
                             </div><!-- media -->
                             <div class="d-flex flex-column flex-sm-row mg-t-20 mg-md-t-0">
-                                <button class="btn btn-sm btn-white btn-uppercase pd-x-15"><i data-feather="sidebar" class=""></i> Create Project</button>
+                                <button data-toggle="modal" data-target="#newProjectModal" class="btn btn-sm btn-white btn-uppercase pd-x-15" id="btnNewProject"><i data-feather="sidebar" class=""></i> Create Project</button>
                             </div>
                         </div>
                     </div>
                 </div><!-- col -->
 
-                <div class="col-md-10 col-xl-4 mg-t-10">
+                <div class="col-md-10 col-xl-10 mg-t-10">
                     <div class="card ht-100p">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <h6 class="mg-b-0">My Projects</h6>
@@ -121,6 +122,40 @@
                             <a href="" class="link-03">View All Transactions <i class="icon ion-md-arrow-down mg-l-5"></i></a>
                         </div><!-- card-footer -->
                     </div><!-- card -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="newProjectModal" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New project</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="fmNewProject" type="post">
+                        <div class="form-group">
+                            <label for="projectName" class="col-form-label">Project name:</label>
+                            <input type="text" class="form-control" id="projectName" name="projectName">
+                        </div>
+                        <div class="form-group">
+                            <label for="projectDueDate" class="col-form-label">Project deadline:</label>
+                            <input type="date" class="form-control" id="projectDueDate" name="projectDueDate">
+                        </div>
+                        <div class="form-group">
+                            <label for="projectDesc" class="col-form-label">Project description:</label>
+                            <textarea class="form-control" id="projectDesc" name="projectDesc" rows="6"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnNewProject">Create project</button>
                 </div>
             </div>
         </div>

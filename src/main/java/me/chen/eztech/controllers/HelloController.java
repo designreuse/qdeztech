@@ -64,7 +64,8 @@ public class HelloController {
     public void stopAllProcess(){
         List<ProcessInstance> instanceList = runtimeService
                 .createProcessInstanceQuery()
-                .processDefinitionKey("articleReview")
+                .processDefinitionKey("eztech")
+                .includeProcessVariables()
                 .list();
 
         instanceList.forEach(processInstance -> {
@@ -73,6 +74,10 @@ public class HelloController {
             System.out.print("Business Key: " + processInstance.getProcessDefinitionKey());
             System.out.print(",     Business InstanceID: " + processInstance.getProcessInstanceId());
             System.out.println(",   Business ID: " + processInstance.getProcessDefinitionId());
+            processInstance.getProcessVariables().forEach((k,v) ->{
+                System.out.println(k + ": " + v);
+            });
+
 
             runtimeService.deleteProcessInstance(processInstance.getProcessInstanceId(), "Clean");
         });
