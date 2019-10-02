@@ -40,7 +40,7 @@
                                 <div class="media-body mg-l-15">
                                     <h6 class="tx-12 tx-lg-14 tx-semibold tx-uppercase tx-spacing-1 mg-b-5">QingDao University <span class="tx-normal tx-color-03">ShanDong China</span></h6>
                                     <div class="d-flex align-items-baseline">
-                                        <h2 class="tx-20 tx-lg-28 tx-normal tx-rubik tx-spacing--2 lh-2 mg-b-0">1 Project</h2>
+                                        <h2 class="tx-20 tx-lg-28 tx-normal tx-rubik tx-spacing--2 lh-2 mg-b-0" th:text="${projectCnt + ' Project'}">n projects</h2>
                                         <!--<h6 class="tx-11 tx-lg-16 tx-normal tx-rubik tx-danger mg-l-5 lh-2 mg-b-0">-$7.98(0.2006%)</h6>-->
                                     </div>
                                 </div><!-- media-body -->
@@ -52,7 +52,7 @@
                     </div>
                 </div><!-- col -->
 
-                <div class="col-md-10 col-xl-10 mg-t-10">
+                <div class="col-md-12 col-xl-12 mg-t-12 mt-1">
                     <div class="card ht-100p">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <h6 class="mg-b-0">My Projects</h6>
@@ -62,59 +62,15 @@
                             </div>
                         </div>
                         <ul class="list-group list-group-flush tx-13">
-                            <li class="list-group-item d-flex pd-sm-x-20">
+                            <li th:each="project : ${projectList}" class="list-group-item d-flex pd-sm-x-20 projectList">
                                 <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
                                 <div class="pd-sm-l-10">
-                                    <p class="tx-medium mg-b-0">Payment from #10322</p>
-                                    <small class="tx-12 tx-color-03 mg-b-0">Mar 21, 2019, 3:30pm</small>
+                                    <p class="tx-medium mg-b-0" th:text="${project.name}">Project name</p>
+                                    <small class="tx-12 tx-color-03 mg-b-0" th:text="${'Deadline: ' + project.deadline}">Project deadline</small>
                                 </div>
                                 <div class="mg-l-auto text-right">
                                     <p class="tx-medium mg-b-0">+ $250.00</p>
-                                    <small class="tx-12 tx-success mg-b-0">Completed</small>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex pd-sm-x-20">
-                                <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-indigo op-5"><i class="icon ion-md-return-left"></i></span></div>
-                                <div class="pd-sm-l-10">
-                                    <p class="tx-medium mg-b-2">Process refund to #00910</p>
-                                    <small class="tx-12 tx-color-03 mg-b-0">Mar 21, 2019, 1:00pm</small>
-                                </div>
-                                <div class="mg-l-auto text-right">
-                                    <p class="tx-medium mg-b-2">-$16.50</p>
-                                    <small class="tx-12 tx-success mg-b-0">Completed</small>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex pd-sm-x-20">
-                                <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-orange op-5"><i class="icon ion-md-bus"></i></span></div>
-                                <div class="pd-sm-l-10">
-                                    <p class="tx-medium mg-b-2">Process delivery to #44333</p>
-                                    <small class="tx-12 tx-color-03 mg-b-0">Mar 20, 2019, 11:40am</small>
-                                </div>
-                                <div class="mg-l-auto text-right">
-                                    <p class="tx-medium mg-b-2">3 Items</p>
-                                    <small class="tx-12 tx-info mg-b-0">For pickup</small>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex pd-sm-x-20">
-                                <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
-                                <div class="pd-sm-l-10">
-                                    <p class="tx-medium mg-b-0">Payment from #023328</p>
-                                    <small class="tx-12 tx-color-03 mg-b-0">Mar 20, 2019, 10:30pm</small>
-                                </div>
-                                <div class="mg-l-auto text-right">
-                                    <p class="tx-medium mg-b-0">+ $129.50</p>
-                                    <small class="tx-12 tx-success mg-b-0">Completed</small>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex pd-sm-x-20">
-                                <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-gray-400"><i class="icon ion-md-close"></i></span></div>
-                                <div class="pd-sm-l-10">
-                                    <p class="tx-medium mg-b-0">Payment failed from #087651</p>
-                                    <small class="tx-12 tx-color-03 mg-b-0">Mar 19, 2019, 12:54pm</small>
-                                </div>
-                                <div class="mg-l-auto text-right">
-                                    <p class="tx-medium mg-b-0">$150.00</p>
-                                    <small class="tx-12 tx-danger mg-b-0">Declined</small>
+                                    <small class="tx-12 tx-success mg-b-0">Inprogress</small>
                                 </div>
                             </li>
                         </ul>

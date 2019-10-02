@@ -1,6 +1,7 @@
 package me.chen.eztech.controllers;
 
 
+import me.chen.eztech.dtos.ProjectInitObj;
 import me.chen.eztech.services.EZTechWorkflowService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
@@ -61,11 +62,13 @@ public class HelloController {
     }
 
     @GetMapping("/status")
-    public void stopAllProcess(){
+    public void stopAllProcess(Principal principal){
+        String userId = principal.getName();
         List<ProcessInstance> instanceList = runtimeService
                 .createProcessInstanceQuery()
                 .processDefinitionKey("eztech")
                 .includeProcessVariables()
+                .startedBy(userId)
                 .list();
 
         instanceList.forEach(processInstance -> {
@@ -75,7 +78,12 @@ public class HelloController {
             System.out.print(",     Business InstanceID: " + processInstance.getProcessInstanceId());
             System.out.println(",   Business ID: " + processInstance.getProcessDefinitionId());
             processInstance.getProcessVariables().forEach((k,v) ->{
-                System.out.println(k + ": " + v);
+                if(v instanceof ProjectInitObj){
+                    ProjectInitObj projectInitObj = (ProjectInitObj) v;
+                    System.out.println("Project name: " + projectInitObj.getProjectName());
+                    System.out.println("Project Desc: " + projectInitObj.getProjectDesc());
+                }
+                else{System.out.println(k + ": " + v);}
             });
 
 
