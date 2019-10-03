@@ -1,8 +1,8 @@
 package me.chen.eztech.controllers;
 
 
-import me.chen.eztech.dtos.ProjectInitObj;
 import me.chen.eztech.models.ActionLog;
+import me.chen.eztech.forms.ProjectFmt;
 import me.chen.eztech.models.Project;
 import me.chen.eztech.services.ActionLogService;
 import me.chen.eztech.services.EZTechProjectWorkflowService;
@@ -34,10 +34,9 @@ public class EZTechProjectWorkflowController {
     ProjectService projectService;
 
     @PostMapping("/startproject")
-    public String startProcess(ProjectInitObj projectInitObj, Principal principal){
+    public String startProcess(ProjectFmt projectFmt, Principal principal){
 
-        projectInitObj.setProjectOwnerId(principal.getName());
-        ProcessInstance processInstance = service.startProcess(projectInitObj);
+        ProcessInstance processInstance = service.startProcess(projectFmt);
 
         // Complete first task createProject
         Task task = service.getCurrentTask(processInstance.getProcessInstanceId());
@@ -49,7 +48,7 @@ public class EZTechProjectWorkflowController {
 
 
         ActionLog actionLog = new ActionLog();
-        actionLog.setAction(principal.getName() + " create project: " + projectInitObj.getProjectName() + " that due on " + projectInitObj.getProjectDueDate());
+        actionLog.setAction(principal.getName() + " create project: " + projectFmt.getProjectName() + " that due on " + projectFmt.getProjectDueDate());
         actionLog.setActionTime(new Timestamp(System.currentTimeMillis()));
         actionLog.setUserId(principal.getName());
         actionLog.setProjectOwnerId(principal.getName());
@@ -59,7 +58,7 @@ public class EZTechProjectWorkflowController {
         // Save project to external data table
         Project project = new Project();
         project.setProjectId(processInstance.getProcessInstanceId());
-        project.setProjectOwner(projectInitObj.getProjectName());
+        project.setProjectOwner(principal.getName());
         project.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         project.setOwner(principal.getName());
         projectService.save(project);

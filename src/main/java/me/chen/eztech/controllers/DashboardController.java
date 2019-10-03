@@ -2,7 +2,6 @@ package me.chen.eztech.controllers;
 
 
 import me.chen.eztech.dtos.ProjectDto;
-import me.chen.eztech.dtos.ProjectInitObj;
 import me.chen.eztech.models.ActionLog;
 import me.chen.eztech.services.ActionLogService;
 import me.chen.eztech.services.EZTechProjectWorkflowService;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DashboardController {
@@ -51,18 +51,13 @@ public class DashboardController {
 
             // Get current stage
             Task task = service.getCurrentTask(processInstance.getProcessInstanceId());
+            Map<String, Object> variables = processInstance.getProcessVariables();
+            projectDto.setName(variables.get("name").toString());
+            projectDto.setDesc(variables.get("desc").toString());
+            projectDto.setDeadline(variables.get("deadline").toString());
+            projectDto.setCurrentStage(task.getName());
 
-            processInstance.getProcessVariables().forEach((k,v) ->{
-                if(v instanceof ProjectInitObj){
-                    ProjectInitObj projectInitObj = (ProjectInitObj)v;
-                    projectDto.setName(projectInitObj.getProjectName());
-                    projectDto.setDeadline(projectInitObj.getProjectDueDate());
-                    projectDto.setDesc(projectInitObj.getProjectDesc());
-                    projectDto.setCurrentStage(task.getName());
-
-                    projectDtos.add(projectDto);
-                }
-            });
+            projectDtos.add(projectDto);
         });
 
         model.addAttribute("projectList", projectDtos);

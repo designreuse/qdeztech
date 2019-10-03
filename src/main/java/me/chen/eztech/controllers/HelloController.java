@@ -1,7 +1,6 @@
 package me.chen.eztech.controllers;
 
 
-import me.chen.eztech.dtos.ProjectInitObj;
 import me.chen.eztech.services.EZTechWorkflowService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
@@ -78,13 +77,7 @@ public class HelloController {
             System.out.print(",     Business InstanceID: " + processInstance.getProcessInstanceId());
             System.out.println(",   Business ID: " + processInstance.getProcessDefinitionId());
             processInstance.getProcessVariables().forEach((k,v) ->{
-                if(v instanceof ProjectInitObj){
-                    ProjectInitObj projectInitObj = (ProjectInitObj) v;
-                    System.out.println("Project name: " + projectInitObj.getProjectName());
-                    System.out.println("Project Desc: " + projectInitObj.getProjectDesc());
-                    System.out.println("Current stage: " + projectInitObj.getCurrentStage());
-                }
-                else{System.out.println(k + ": " + v);}
+                System.out.println(k + ": " + v);
             });
 
 
