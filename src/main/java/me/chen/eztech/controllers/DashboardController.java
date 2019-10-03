@@ -3,18 +3,17 @@ package me.chen.eztech.controllers;
 
 import me.chen.eztech.dtos.ProjectDto;
 import me.chen.eztech.dtos.ProjectInitObj;
-import net.bytebuddy.asm.Advice;
+import me.chen.eztech.models.ActionLog;
+import me.chen.eztech.services.ActionLogService;
+import me.chen.eztech.services.EZTechProjectWorkflowService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
-import org.flowable.engine.runtime.Execution;
 import org.flowable.engine.runtime.ProcessInstance;
-import org.flowable.identitylink.api.IdentityLink;
-import org.flowable.idm.api.IdmIdentityService;
+import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -27,6 +26,11 @@ public class DashboardController {
     RepositoryService repositoryService;
     @Autowired
     RuntimeService runtimeService;
+    @Autowired
+    EZTechProjectWorkflowService service;
+
+    @Autowired
+    ActionLogService actionLogService;
 
     @GetMapping("/dashboard")
     public String dashboard(Principal principal, Model model){
@@ -38,16 +42,15 @@ public class DashboardController {
                 .processDefinitionKey("eztech")
                 .includeProcessVariables()
                 .startedBy(userId)
+                .orderByStartTime().desc()
                 .list();
 
         List<ProjectDto> projectDtos = new ArrayList<>();
         instanceList.forEach(processInstance -> {
             ProjectDto projectDto = new ProjectDto();
 
-            List<Execution> executions = runtimeService
-                    .createExecutionQuery()
-                    .processInstanceId(processInstance.getProcessInstanceId())
-                    .list();
+            // Get current stage
+            Task task = service.getCurrentTask(processInstance.getProcessInstanceId());
 
             processInstance.getProcessVariables().forEach((k,v) ->{
                 if(v instanceof ProjectInitObj){
@@ -55,6 +58,7 @@ public class DashboardController {
                     projectDto.setName(projectInitObj.getProjectName());
                     projectDto.setDeadline(projectInitObj.getProjectDueDate());
                     projectDto.setDesc(projectInitObj.getProjectDesc());
+                    projectDto.setCurrentStage(task.getName());
 
                     projectDtos.add(projectDto);
                 }
@@ -63,6 +67,10 @@ public class DashboardController {
 
         model.addAttribute("projectList", projectDtos);
         model.addAttribute("projectCnt", projectDtos.size());
+
+        // Get Activities
+        List<ActionLog> actionLogs = actionLogService.getActionLogsByOwner(userId);
+        model.addAttribute("activities", actionLogs);
 
         return "dashboard";
     }

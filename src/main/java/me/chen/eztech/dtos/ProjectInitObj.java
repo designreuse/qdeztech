@@ -13,4 +13,6 @@ public class ProjectInitObj implements Serializable {
     private String projectOwnerId;
     private String projectDesc;
 
+    private String currentStage;
+
 }

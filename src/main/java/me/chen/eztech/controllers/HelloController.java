@@ -82,6 +82,7 @@ public class HelloController {
                     ProjectInitObj projectInitObj = (ProjectInitObj) v;
                     System.out.println("Project name: " + projectInitObj.getProjectName());
                     System.out.println("Project Desc: " + projectInitObj.getProjectDesc());
+                    System.out.println("Current stage: " + projectInitObj.getCurrentStage());
                 }
                 else{System.out.println(k + ": " + v);}
             });

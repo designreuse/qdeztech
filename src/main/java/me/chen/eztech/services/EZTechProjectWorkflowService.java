@@ -6,6 +6,7 @@ import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
 import org.flowable.engine.runtime.Execution;
 import org.flowable.engine.runtime.ProcessInstance;
+import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,21 @@ public class EZTechProjectWorkflowService {
         variables.put("projectInfo", projectInitObj);
 
         return runtimeService.startProcessInstanceByKey("eztech", variables);
+    }
+
+
+    /**
+     * Get current active task
+     * @param processInstanceId
+     * @return
+     */
+    public Task getCurrentTask(String processInstanceId){
+
+        return taskService
+                .createTaskQuery()
+                .active()
+                .processInstanceId(processInstanceId)
+                .singleResult();
     }
 
 

@@ -9,4 +9,5 @@ public class ProjectDto {
     private String name;
     private String desc;
     private String deadline;
+    private String currentStage;
 }

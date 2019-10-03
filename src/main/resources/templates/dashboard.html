@@ -17,7 +17,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb breadcrumb-style1 mg-b-10">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Cryptocurrency</li>
+                            <li class="breadcrumb-item active" aria-current="page">Overview</li>
                         </ol>
                     </nav>
                     <h4 class="mg-b-0 tx-spacing--1">Welcome to QianDao University - EZTech</h4>
@@ -61,22 +61,54 @@
                                 <a href="" class="link-03 lh-0 mg-l-10"><i class="icon ion-md-more"></i></a>
                             </div>
                         </div>
-                        <ul class="list-group list-group-flush tx-13">
+                        <ul class="list-group list-group-flush tx-13" id="myProjectList">
                             <li th:each="project : ${projectList}" class="list-group-item d-flex pd-sm-x-20 projectList">
                                 <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
                                 <div class="pd-sm-l-10">
                                     <p class="tx-medium mg-b-0" th:text="${project.name}">Project name</p>
-                                    <small class="tx-12 tx-color-03 mg-b-0" th:text="${'Deadline: ' + project.deadline}">Project deadline</small>
+                                    <small class="tx-12 tx-color-03 mg-b-0" th:text="${'Due Date: ' + project.deadline}">Project deadline</small>
                                 </div>
                                 <div class="mg-l-auto text-right">
-                                    <p class="tx-medium mg-b-0">+ $250.00</p>
-                                    <small class="tx-12 tx-success mg-b-0">Inprogress</small>
+                                    <p class="tx-medium mg-b-0">Students: -</p>
+                                    <small class="tx-12 tx-danger mg-b-0" th:text="${'Current Step: ' + project.currentStage}">Current stage</small>
+                                </div>
+                                <div class="mg-l-20-f d-flex align-self-center">
+                                    <nav class="nav nav-icon-only">
+                                        <!--<a href="" class="nav-link d-none d-sm-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>-->
+                                        <a href="" class="text-danger nav-link d-none d-sm-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-slash"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg></a>
+                                        <a href="" class="text-primary nav-link d-none d-sm-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
+                                        <!--<a href="" class="nav-link d-sm-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></a>-->
+                                    </nav>
                                 </div>
                             </li>
                         </ul>
                         <div class="card-footer text-center tx-13">
                             <a href="" class="link-03">View All Transactions <i class="icon ion-md-arrow-down mg-l-5"></i></a>
                         </div><!-- card-footer -->
+                    </div><!-- card -->
+                </div>
+
+                <div class="col-md-6 mg-t-10 mt-1">
+                    <div class="card">
+                        <div class="card-header pd-b-0 pd-x-20 bd-b-0">
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <h6 class="mg-b-0">Recent Activities</h6>
+                                <p class="tx-12 tx-color-03 mg-b-0"></p>
+                            </div>
+                        </div><!-- card-header -->
+                        <div class="card-body pd-20">
+                            <ul class="activity tx-13">
+                                <li th:each="activity : ${activities}" class="activity-item">
+                                    <div class="activity-icon bg-primary-light tx-primary">
+                                        <i data-feather="clock"></i>
+                                    </div>
+                                    <div class="activity-body">
+                                        <p class="mg-b-2" th:text="${activity.action}">Activity</p>
+                                        <small class="tx-color-03" th:text="${activity.actionTime}">now</small>
+                                    </div><!-- activity-body -->
+                                </li><!-- activity-item -->
+                            </ul><!-- activity -->
+                        </div><!-- card-body -->
                     </div><!-- card -->
                 </div>
             </div>
@@ -94,7 +126,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="fmNewProject" type="post">
+                    <form id="fmNewProject" method="post" th:action="@{/startproject}">
                         <div class="form-group">
                             <label for="projectName" class="col-form-label">Project name:</label>
                             <input type="text" class="form-control" id="projectName" name="projectName">

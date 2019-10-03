@@ -30,6 +30,14 @@ public class UserCreatorCommandLineRunner implements CommandLineRunner {
             Privilege restPrivilege = idmIdentityService.createPrivilege("ROLE_ACTUATOR");
             idmIdentityService.addUserPrivilegeMapping(restPrivilege.getId(), "flowfest-actuator");
         }
+
+        if(idmIdentityService.createPrivilegeQuery().privilegeName("ROLE_TEACHER").count() == 0){
+            Privilege restPrivilege = idmIdentityService.createPrivilege("ROLE_TEACHER");
+        }
+
+        if(idmIdentityService.createPrivilegeQuery().privilegeName("ROLE_STUDENT").count() == 0){
+            Privilege restPrivilege = idmIdentityService.createPrivilege("ROLE_STUDENT");
+        }
     }
 
     protected void createUserIfNotExists(String username) {
