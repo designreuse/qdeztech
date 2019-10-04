@@ -8,6 +8,7 @@ import java.util.Date;
 public class TaskDto {
 
     private String id;
+    private String definitionKey;
     private String name;
     private String desc;
 

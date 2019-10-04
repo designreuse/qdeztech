@@ -8,6 +8,10 @@ $(function(){
         $('#projectDueDate').val('');
     });
 
+    $('#acceptProjectInviteModal').on('hidden.bs.modal', function(e){
+        $('#acceptInvitationComment').val('');
+    });
+
 
     /**
      * Create new project
@@ -21,7 +25,14 @@ $(function(){
      */
     $('#fmBtnAssignStudent').click(function (e){
         $('#fmAssignStudents').submit();
-    })
+    });
+
+    /**
+     * Accept project
+     */
+    $("#fmBtnAcceptProject").click(function (e){
+        $('#fmAcceptProject').submit;
+    });
 
 
 
@@ -39,5 +50,21 @@ $(function(){
         $('#assignStudentsProjectId').val(projectId);
         $('#assignStudentModal').modal('show');
         return false;
+    });
+
+    $('.btnTaskAction').click(function (e){
+        e.preventDefault();
+        var taskId = $(this).closest('nav').attr('data');
+        var taskKey = $(this).attr('data');
+
+        switch (taskKey){
+            case 'acceptProject':
+                $('#fmAcceptProject #acceptProjectTaskId').val(taskId);
+                $('#acceptProjectInviteModal').modal('show');
+
+            default:
+                // Do nothing
+        }
+
     })
 });

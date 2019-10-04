@@ -1,6 +1,7 @@
 package me.chen.eztech.controllers;
 
 
+import me.chen.eztech.forms.AcceptProjectFmt;
 import me.chen.eztech.forms.AssignStudentsFmt;
 import me.chen.eztech.models.ActionLog;
 import me.chen.eztech.forms.ProjectFmt;
@@ -105,6 +106,7 @@ public class EZTechProjectWorkflowController {
         task = service.getCurrentTask(processInstance.getProcessInstanceId());
         task.setAssignee(assignStudentsFmt.getSelectedStudents());
         taskService.setAssignee(task.getId(), assignStudentsFmt.getSelectedStudents());
+        taskService.setOwner(task.getId(), principal.getName());
 
         ActionLog actionLog = new ActionLog();
         actionLog.setAction(principal.getName() + " assign student: " + assignStudentsFmt.getSelectedStudents() + " to project: " + processInstance.getProcessVariables().get("name"));
@@ -114,6 +116,37 @@ public class EZTechProjectWorkflowController {
         actionLogService.save(actionLog);
 
         List<Task> taskList = taskService.createTaskQuery().taskCandidateOrAssigned(assignStudentsFmt.getSelectedStudents()).list();
+        return "redirect:/dashboard";
+    }
+
+
+    /**
+     * Student accept the project invitation
+     * @param acceptProjectFmt
+     * @param principal
+     * @return
+     */
+    @PostMapping("/acceptproject")
+    public String acceptProject(AcceptProjectFmt acceptProjectFmt, Principal principal){
+
+        // Get the task
+        Task task = taskService.createTaskQuery().taskId(acceptProjectFmt.getTaskId()).singleResult();
+        taskService.setVariable(acceptProjectFmt.getTaskId(), "comment", acceptProjectFmt.getAcceptInvitationComment());
+        taskService.complete(acceptProjectFmt.getTaskId());
+
+//        runtimeService.createProcessInstanceQuery().
+
+        ActionLog actionLog = new ActionLog();
+        actionLog.setAction(principal.getName() + " accept task: " + task.getName());
+        actionLog.setActionTime(new Timestamp(System.currentTimeMillis()));
+        actionLog.setUserId(principal.getName());
+        actionLog.setProjectOwnerId(task.getOwner());
+        actionLogService.save(actionLog);
+
+        // Assign next task to self (submitTopic)
+        task = service.getCurrentTask(task.getProcessInstanceId());
+        taskService.setAssignee(task.getId(), principal.getName());
+
         return "redirect:/dashboard";
     }
 }

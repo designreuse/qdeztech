@@ -101,6 +101,7 @@ public class DashboardController {
         taskList.forEach(task -> {
             TaskDto taskDto = new TaskDto();
             taskDto.setId(task.getId());
+            taskDto.setDefinitionKey(task.getTaskDefinitionKey());
             taskDto.setName(task.getName());
             taskDto.setDesc(task.getDescription());
             taskDto.setDueDate(task.getDueDate());

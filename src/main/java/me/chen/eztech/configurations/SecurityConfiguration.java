@@ -28,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                    .antMatchers("/dashboard").hasRole("REST")
+                    .antMatchers("/dashboard").hasAnyRole("REST", "STUDENT", "PROFESSOR")
                 .and()
                     .csrf().disable()
                 .httpBasic()

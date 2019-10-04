@@ -2,8 +2,11 @@ package me.chen.eztech.controllers;
 
 
 import me.chen.eztech.services.EZTechWorkflowService;
+import net.bytebuddy.asm.Advice;
+import org.flowable.engine.HistoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
+import org.flowable.engine.history.HistoricActivityInstance;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,8 @@ public class HelloController {
     RuntimeService runtimeService;
     @Autowired
     TaskService taskService;
+    @Autowired
+    HistoryService historyService;
 
 //    public HelloController(final RuntimeService runtimeService, final TaskService taskService){
 //        this.runtimeService = runtimeService;
@@ -83,5 +88,11 @@ public class HelloController {
 
             runtimeService.deleteProcessInstance(processInstance.getProcessInstanceId(), "Clean");
         });
+    }
+
+    @GetMapping("/history")
+    public void showHistory(Principal principal){
+        List<HistoricActivityInstance> historicActivityInstances =  historyService.createHistoricActivityInstanceQuery().list();
+        System.out.println("Test");
     }
 }

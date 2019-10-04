@@ -21,6 +21,7 @@ public class UserCreatorCommandLineRunner implements CommandLineRunner {
         createUserIfNotExists("flowfest-actuator");
         createUserIfNotExists("flowfest-rest");
         createUserIfNotExists("john");
+        createUserIfNotExists("joy");
 
         if (idmIdentityService.createPrivilegeQuery().privilegeName("ROLE_REST").count() == 0) {
             Privilege restPrivilege = idmIdentityService.createPrivilege("ROLE_REST");
@@ -32,8 +33,9 @@ public class UserCreatorCommandLineRunner implements CommandLineRunner {
             idmIdentityService.addUserPrivilegeMapping(restPrivilege.getId(), "flowfest-actuator");
         }
 
-        if(idmIdentityService.createPrivilegeQuery().privilegeName("ROLE_TEACHER").count() == 0){
-            Privilege restPrivilege = idmIdentityService.createPrivilege("ROLE_TEACHER");
+        if(idmIdentityService.createPrivilegeQuery().privilegeName("ROLE_PROFESSOR").count() == 0){
+            Privilege restPrivilege = idmIdentityService.createPrivilege("ROLE_PROFESSOR");
+            idmIdentityService.addUserPrivilegeMapping(restPrivilege.getId(), "joy");
         }
 
         if(idmIdentityService.createPrivilegeQuery().privilegeName("ROLE_STUDENT").count() == 0){

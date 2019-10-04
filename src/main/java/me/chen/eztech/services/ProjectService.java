@@ -27,4 +27,10 @@ public class ProjectService {
      * @return
      */
     public Project getProjectById(String projectId) { return projectRepository.getProjectByProjectId(projectId);}
+
+    public void assignStudentToProject(String studentId, String projectId){
+        Project project = getProjectById(projectId);
+        project.setStudentId(studentId);
+        projectRepository.save(project);
+    }
 }
