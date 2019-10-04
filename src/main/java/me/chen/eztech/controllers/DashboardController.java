@@ -2,6 +2,7 @@ package me.chen.eztech.controllers;
 
 
 import me.chen.eztech.dtos.ProjectDto;
+import me.chen.eztech.dtos.TaskDto;
 import me.chen.eztech.dtos.UserDto;
 import me.chen.eztech.models.ActionLog;
 import me.chen.eztech.services.ActionLogService;
@@ -9,6 +10,7 @@ import me.chen.eztech.services.EZTechProjectWorkflowService;
 import me.chen.eztech.services.PrivilegeService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
+import org.flowable.engine.TaskService;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.flowable.idm.api.User;
 import org.flowable.task.api.Task;
@@ -31,6 +33,8 @@ public class DashboardController {
     RuntimeService runtimeService;
     @Autowired
     EZTechProjectWorkflowService service;
+    @Autowired
+    TaskService taskService;
 
     @Autowired
     ActionLogService actionLogService;
@@ -90,6 +94,21 @@ public class DashboardController {
         });
 
         model.addAttribute("students", students);
+
+        // Get all my tasks
+        List<Task> taskList = taskService.createTaskQuery().taskCandidateOrAssigned(principal.getName()).list();
+        List<TaskDto> taskDtos = new ArrayList<>();
+        taskList.forEach(task -> {
+            TaskDto taskDto = new TaskDto();
+            taskDto.setId(task.getId());
+            taskDto.setName(task.getName());
+            taskDto.setDesc(task.getDescription());
+            taskDto.setDueDate(task.getDueDate());
+
+            taskDtos.add(taskDto);
+        });
+
+        model.addAttribute("tasks", taskDtos);
 
         return "dashboard";
     }

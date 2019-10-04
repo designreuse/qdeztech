@@ -90,7 +90,7 @@
                     </div><!-- card -->
                 </div>
 
-                <div class="col-md-6 mg-t-10 mt-1">
+                <div class="col-md-6 mg-t-6 col-xl-6 mt-1">
                     <div class="card">
                         <div class="card-header pd-b-0 pd-x-20 bd-b-0">
                             <div class="d-sm-flex align-items-center justify-content-between">
@@ -111,6 +111,33 @@
                                 </li><!-- activity-item -->
                             </ul><!-- activity -->
                         </div><!-- card-body -->
+                    </div><!-- card -->
+                </div>
+
+                <div class="col-md-6 col-xl-6 mg-t-6 mt-1">
+                    <div class="card">
+                        <div class="card-header align-items-center justify-content-between">
+                            <h6 class="mg-b-0">My Tasks</h6>
+                        </div>
+                        <ul class="list-group list-group-flush tx-13" id="myTaskList">
+                            <li th:each="task : ${tasks}" class="list-group-item d-flex pd-sm-x-20 projectList">
+                                <div class="avatar d-none d-sm-block"><span class="avatar-initial rounded-circle bg-teal"><i class="icon ion-md-checkmark"></i></span></div>
+                                <div class="pd-sm-l-10">
+                                    <p class="tx-medium mg-b-0" th:text="${task.name}">Task name</p>
+                                    <small class="tx-12 tx-color-03 mg-b-0" th:text="${'Due Date: ' + task.dueDate}">task deadline</small>
+                                </div>
+                                <div class="mg-l-20-f d-flex align-self-center">
+                                    <nav class="nav nav-icon-only">
+                                        <!--<a href="" class="nav-link d-none d-sm-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>-->
+                                        <a th:data="${task.id}" href="" class="btnDeleteProject text-danger nav-link d-none d-sm-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-slash"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg></a>
+                                        <!--<th:block th:if="@{project.currentStageKey=='assignStudents'}">-->
+                                        <a th:data="${task.id}" href="" class="btnAssignUser text-primary nav-link d-none d-sm-block"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
+                                        <!--</th:block>-->
+                                        <!--<a href="" class="nav-link d-sm-none"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></a>-->
+                                    </nav>
+                                </div>
+                            </li>
+                        </ul>
                     </div><!-- card -->
                 </div>
             </div>
