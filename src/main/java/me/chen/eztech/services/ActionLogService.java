@@ -23,7 +23,7 @@ public class ActionLogService {
      * @return
      */
     public List<ActionLog> getActionLogsByOwner(String ownerId){
-        return actionLogRepository.getActionLogsByProjectOwnerIdOrderByActionTimeDesc(ownerId);
+        return actionLogRepository.findTop10ActionLogsByProjectOwnerIdOrderByActionTimeDesc(ownerId);
     }
 
 }

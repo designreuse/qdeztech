@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ActionLogRepository extends JpaRepository<ActionLog, String> {
 
-    public List<ActionLog> getActionLogsByProjectOwnerIdOrderByActionTimeDesc(String ownerId);
+    public List<ActionLog> findTop10ActionLogsByProjectOwnerIdOrderByActionTimeDesc(String ownerId);
 }

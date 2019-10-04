@@ -2,12 +2,15 @@ package me.chen.eztech.controllers;
 
 
 import me.chen.eztech.dtos.ProjectDto;
+import me.chen.eztech.dtos.UserDto;
 import me.chen.eztech.models.ActionLog;
 import me.chen.eztech.services.ActionLogService;
 import me.chen.eztech.services.EZTechProjectWorkflowService;
+import me.chen.eztech.services.PrivilegeService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.runtime.ProcessInstance;
+import org.flowable.idm.api.User;
 import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +34,8 @@ public class DashboardController {
 
     @Autowired
     ActionLogService actionLogService;
+    @Autowired
+    PrivilegeService privilegeService;
 
     @GetMapping("/dashboard")
     public String dashboard(Principal principal, Model model){
@@ -56,6 +61,8 @@ public class DashboardController {
             projectDto.setDesc(variables.get("desc").toString());
             projectDto.setDeadline(variables.get("deadline").toString());
             projectDto.setCurrentStage(task.getName());
+            projectDto.setCurrentStageKey(task.getTaskDefinitionKey());
+            projectDto.setId(processInstance.getId());
 
             projectDtos.add(projectDto);
         });
@@ -66,6 +73,23 @@ public class DashboardController {
         // Get Activities
         List<ActionLog> actionLogs = actionLogService.getActionLogsByOwner(userId);
         model.addAttribute("activities", actionLogs);
+
+        // Get all students
+        List<User> users =  privilegeService.getUserByPrivilegeName("ROLE_STUDENT");
+        List<UserDto> students = new ArrayList<>();
+
+        users.forEach(user -> {
+            UserDto userDto = new UserDto();
+            userDto.setFirstName(user.getFirstName());
+            userDto.setLastName(user.getLastName());
+            userDto.setEmail(user.getEmail());
+            userDto.setDisplayName(user.getDisplayName());
+            userDto.setTenantId(user.getTenantId());
+            userDto.setId(user.getId());
+            students.add(userDto);
+        });
+
+        model.addAttribute("students", students);
 
         return "dashboard";
     }

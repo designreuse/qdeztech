@@ -5,9 +5,9 @@
         <startEvent id="projectStart" flowable:formFieldValidation="true"></startEvent>
         <userTask id="createProject" name="Create research project" flowable:candidateGroups="professor" flowable:formFieldValidation="true"></userTask>
         <sequenceFlow id="sid-C90D20AE-CB79-4915-826A-E958B9D6DB45" sourceRef="projectStart" targetRef="createProject"></sequenceFlow>
-        <userTask id="assignStudents" name="Assign Student" flowable:formFieldValidation="true"></userTask>
+        <userTask id="assignStudents" name="Assign student" flowable:formFieldValidation="true"></userTask>
         <sequenceFlow id="sid-0ED81843-B749-42B7-A98F-9ABB53E9A86C" sourceRef="createProject" targetRef="assignStudents"></sequenceFlow>
-        <userTask id="acceptProject" name="Student accept" flowable:candidateGroups="student" flowable:formFieldValidation="true"></userTask>
+        <userTask id="acceptProject" name="Wait for student accept" flowable:candidateGroups="student" flowable:formFieldValidation="true"></userTask>
         <sequenceFlow id="sid-172E0BFA-FD07-4EE2-B380-F4594C70FCAC" sourceRef="assignStudents" targetRef="acceptProject"></sequenceFlow>
         <userTask id="submitTopic" name="Topic selection" flowable:formFieldValidation="true"></userTask>
         <sequenceFlow id="sid-7AEFB118-FD01-460A-AA0D-0810AEADEE91" sourceRef="acceptProject" targetRef="submitTopic"></sequenceFlow>

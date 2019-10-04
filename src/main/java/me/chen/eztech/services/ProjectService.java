@@ -20,4 +20,11 @@ public class ProjectService {
     public Project save(Project project){
         return projectRepository.save(project);
     }
+
+    /**
+     * Get project by project id (flowable project id)
+     * @param projectId
+     * @return
+     */
+    public Project getProjectById(String projectId) { return projectRepository.getProjectByProjectId(projectId);}
 }

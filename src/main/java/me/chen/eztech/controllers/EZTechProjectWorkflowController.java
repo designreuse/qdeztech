@@ -1,6 +1,7 @@
 package me.chen.eztech.controllers;
 
 
+import me.chen.eztech.forms.AssignStudentsFmt;
 import me.chen.eztech.models.ActionLog;
 import me.chen.eztech.forms.ProjectFmt;
 import me.chen.eztech.models.Project;
@@ -33,6 +34,12 @@ public class EZTechProjectWorkflowController {
     @Autowired
     ProjectService projectService;
 
+    /**
+     * Kick off project
+     * @param projectFmt
+     * @param principal
+     * @return
+     */
     @PostMapping("/startproject")
     public String startProcess(ProjectFmt projectFmt, Principal principal){
 
@@ -65,5 +72,41 @@ public class EZTechProjectWorkflowController {
 
         return "redirect:/dashboard";
 
+    }
+
+
+    /**
+     * Assign student (single for now)
+     * @param assignStudentsFmt
+     * @param principal
+     * @return
+     */
+    @PostMapping("/assignstudents")
+    public String assignStudents(AssignStudentsFmt assignStudentsFmt, Principal principal){
+
+         // Write to database
+        Project project = projectService.getProjectById(assignStudentsFmt.getProjectId());
+        project.setStudentId(assignStudentsFmt.getSelectedStudents());
+
+        projectService.save(project);
+
+        // Move to next step
+        // Complete first task createProject
+        ProcessInstance processInstance = runtimeService
+                .createProcessInstanceQuery()
+                .includeProcessVariables()
+                .processInstanceId(assignStudentsFmt.getProjectId()).singleResult();
+        Task task = service.getCurrentTask(processInstance.getProcessInstanceId());
+        // Complete task
+        taskService.complete(task.getId());
+
+        ActionLog actionLog = new ActionLog();
+        actionLog.setAction(principal.getName() + " assign student: " + assignStudentsFmt.getSelectedStudents() + " to project: " + processInstance.getProcessVariables().get("name"));
+        actionLog.setActionTime(new Timestamp(System.currentTimeMillis()));
+        actionLog.setUserId(principal.getName());
+        actionLog.setProjectOwnerId(principal.getName());
+        actionLogService.save(actionLog);
+
+        return "redirect:/dashboard";
     }
 }
