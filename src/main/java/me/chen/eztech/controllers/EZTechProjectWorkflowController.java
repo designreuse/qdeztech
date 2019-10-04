@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Controller
 public class EZTechProjectWorkflowController {
@@ -100,6 +101,11 @@ public class EZTechProjectWorkflowController {
         // Complete task
         taskService.complete(task.getId());
 
+        // Set Assignee to next task
+        task = service.getCurrentTask(processInstance.getProcessInstanceId());
+        task.setAssignee(assignStudentsFmt.getSelectedStudents());
+        taskService.setAssignee(task.getId(), assignStudentsFmt.getSelectedStudents());
+
         ActionLog actionLog = new ActionLog();
         actionLog.setAction(principal.getName() + " assign student: " + assignStudentsFmt.getSelectedStudents() + " to project: " + processInstance.getProcessVariables().get("name"));
         actionLog.setActionTime(new Timestamp(System.currentTimeMillis()));
@@ -107,6 +113,7 @@ public class EZTechProjectWorkflowController {
         actionLog.setProjectOwnerId(principal.getName());
         actionLogService.save(actionLog);
 
+        List<Task> taskList = taskService.createTaskQuery().taskCandidateOrAssigned(assignStudentsFmt.getSelectedStudents()).list();
         return "redirect:/dashboard";
     }
 }
