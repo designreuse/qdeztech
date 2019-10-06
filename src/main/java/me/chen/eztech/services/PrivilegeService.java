@@ -27,4 +27,17 @@ public class PrivilegeService {
 
         return users;
     }
+
+    /**
+     * Get user's privilege
+     * @param userName
+     * @return
+     */
+    public Privilege getPrivilegeByUserName(String userName){
+        Privilege privilege = identityService.createPrivilegeQuery()
+                .userId(userName)
+                .singleResult();
+
+        return privilege;
+    }
 }

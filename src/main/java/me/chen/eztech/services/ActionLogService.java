@@ -26,4 +26,13 @@ public class ActionLogService {
         return actionLogRepository.findTop10ActionLogsByProjectOwnerIdOrderByActionTimeDesc(ownerId);
     }
 
+    /**
+     * Get log by logger id
+     * @param loggerId
+     * @return
+     */
+    public List<ActionLog> getActionLogsByLogger(String loggerId){
+        return actionLogRepository.findTop10ActionLogsByUserIdOrderByActionTimeDesc(loggerId);
+    }
+
 }

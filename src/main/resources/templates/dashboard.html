@@ -243,6 +243,399 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="submitTopicModal" tabindex="-1" role="dialog" aria-labelledby="submitTopicLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="submitTopicLabel">Submit your topic</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="fmSubmitTopic" method="post" th:action="@{/submittopic}">
+                        <input type="hidden" name="taskId" id="submitTopicTaskId" />
+                        <div class="form-group">
+                            <label for="submitTopicContent" class="col-form-label">Topic content:</label>
+                            <textarea class="form-control" id="submitTopicContent" name="submitTopicContent" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnSubmitTopic">Submit topic</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reviewTopicModal" tabindex="-1" role="dialog" aria-labelledby="reviewTopicLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewTopicLabel">Review submitted topic</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="divider-text">Topic Submitted</div>
+                    <span id="topicContent"></span>
+                    <div class="divider-text">End of Topic Content</div>
+                    <form id="fmReviewTopic" method="post" th:action="@{/reviewtopic}">
+                        <input type="hidden" name="taskId" id="reviewTopicTaskId" />
+                        <div class="form-group">
+                            <label for="reviewTopicContent" class="col-form-label">Review comment:</label>
+                            <textarea class="form-control" id="reviewTopicContent" name="reviewTopicContent" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnReviewTopic">Submit topic</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="submitProposalModal" tabindex="-1" role="dialog" aria-labelledby="submitProposalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="submitProposalLabel">Submit proposal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="fmSubmitProposal" method="post" th:action="@{/submitproposal}">
+                        <input type="hidden" name="taskId" id="submitProposalTaskId" />
+                        <div class="form-group">
+                            <label for="submitProposalContent" class="col-form-label">Proposal briefing:</label>
+                            <textarea class="form-control" id="submitProposalContent" name="submitProposalContent" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input disabled type="file" class="custom-file-input" id="proposalFile" name="proposalFile">
+                                <label class="custom-file-label" for="proposalFile">Choose proposal file</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnSubmitProposal">Submit proposal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reviewProposalModal" tabindex="-1" role="dialog" aria-labelledby="reviewProposalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewProposalLabel">Review submitted proposal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="divider-text">Proposal Briefing</div>
+                    <span id="proposalContent"></span>
+                    <hr>
+                    <form id="fmReviewProposal" method="post" th:action="@{/reviewproposal}">
+                        <input type="hidden" name="taskId" id="reviewProposalTaskId" />
+                        <div class="form-group">
+                            <label for="reviewProposalContent" class="col-form-label">Review comment:</label>
+                            <textarea class="form-control" id="reviewProposalContent" name="reviewProposalContent" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnReviewProposal">Submit review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="submitResearchMethodModal" tabindex="-1" role="dialog" aria-labelledby="submitResearchMethodLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="submitResearchMethodLabel">Submit research method</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="fmSubmitResearchMethod" method="post" th:action="@{/submitresearchmethod}">
+                        <input type="hidden" name="taskId" id="submitResearchMethodTaskId" />
+                        <div class="form-group">
+                            <label for="submitResearchMethod" class="col-form-label">Research method briefing:</label>
+                            <textarea class="form-control" id="submitResearchMethod" name="submitResearchMethod" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input disabled type="file" class="custom-file-input" id="researchMethodFile" name="researchMethodFile">
+                                <label class="custom-file-label" for="proposalFile">Choose research method file</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnSubmitResearchMethod">Submit research method</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reviewResearchMethodModal" tabindex="-1" role="dialog" aria-labelledby="reviewResearchMethodLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewResearchMethodLabel">Review submitted research method</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="divider-text">Research Method Briefing</div>
+                    <span id="researchMethodContent"></span>
+                    <hr>
+                    <form id="fmReviewResearchMethod" method="post" th:action="@{/reviewresearchmethod}">
+                        <input type="hidden" name="taskId" id="reviewResearchMethodTaskId" />
+                        <div class="form-group">
+                            <label for="reviewResearchMethodContent" class="col-form-label">Review comment:</label>
+                            <textarea class="form-control" id="reviewResearchMethodContent" name="reviewResearchMethodContent" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnReviewResearchMethod">Submit review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="submitResearchDataModal" tabindex="-1" role="dialog" aria-labelledby="submitResearchDataLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="submitResearchDataLabel">Submit research data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="fmSubmitResearchData" method="post" th:action="@{/submitresearchdata}">
+                        <input type="hidden" name="taskId" id="submitResearchDataTaskId" />
+                        <div class="form-group">
+                            <label for="submitResearchData" class="col-form-label">Research data briefing:</label>
+                            <textarea class="form-control" id="submitResearchData" name="submitResearchData" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input disabled type="file" class="custom-file-input" id="researchDataFile" name="researchDataFile">
+                                <label class="custom-file-label" for="proposalFile">Choose research data file</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnSubmitResearchData">Submit research data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reviewResearchDataModal" tabindex="-1" role="dialog" aria-labelledby="reviewResearchDataLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewResearchDataLabel">Review submitted research data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="divider-text">Research Data Briefing</div>
+                    <span id="researchDataContent"></span>
+                    <hr>
+                    <form id="fmReviewResearchData" method="post" th:action="@{/reviewresearchdata}">
+                        <input type="hidden" name="taskId" id="reviewResearchDataTaskId" />
+                        <div class="form-group">
+                            <label for="reviewResearchMethodContent" class="col-form-label">Review comment:</label>
+                            <textarea class="form-control" id="reviewResearchDataContent" name="reviewResearchDataContent" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnReviewResearchData">Submit review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="submitAnalysisDataModal" tabindex="-1" role="dialog" aria-labelledby="submitAnalysisDataLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="submitAnalysisDataLabel">Submit analysis data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="fmSubmitAnalysisData" method="post" th:action="@{/submitanalysisdata}">
+                        <input type="hidden" name="taskId" id="submitAnalysisDataTaskId" />
+                        <div class="form-group">
+                            <label for="submitAnalysisData" class="col-form-label">Analysis data briefing:</label>
+                            <textarea class="form-control" id="submitAnalysisData" name="submitAnalysisData" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input disabled type="file" class="custom-file-input" id="analysisDataFile" name="analysisDataFile">
+                                <label class="custom-file-label" for="proposalFile">Choose analysis data file</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnSubmitAnalysisData">Submit analysis data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reviewResearchDataResultModal" tabindex="-1" role="dialog" aria-labelledby="reviewResearchDataResultLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewResearchDataResultLabel">Review submitted research data result</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="divider-text">Research Data Result Briefing</div>
+                    <span id="researchDataResultContent"></span>
+                    <hr>
+                    <form id="fmReviewResearchDataResult" method="post" th:action="@{/reviewresearchdataresult}">
+                        <input type="hidden" name="taskId" id="reviewResearchDataResultTaskId" />
+                        <div class="form-group">
+                            <label for="reviewResearchDataResultContent" class="col-form-label">Review comment:</label>
+                            <textarea class="form-control" id="reviewResearchDataResultContent" name="reviewResearchDataResultContent" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnReviewResearchDataResult">Submit review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="submitConclusionModal" tabindex="-1" role="dialog" aria-labelledby="submitConclusionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="submitConclusionLabel">Submit conclusion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="fmSubmitConclusion" method="post" th:action="@{/submitconclusion}">
+                        <input type="hidden" name="taskId" id="submitConclusionTaskId" />
+                        <div class="form-group">
+                            <label for="submitConclusion" class="col-form-label">Conclusion:</label>
+                            <textarea class="form-control" id="submitConclusion" name="submitConclusion" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input disabled type="file" class="custom-file-input" id="conclusionFile" name="conclusionFile">
+                                <label class="custom-file-label" for="conclusionFile">Choose conclusion file</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnSubmitConclusion">Submit conclusion</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reviewConclusionModal" tabindex="-1" role="dialog" aria-labelledby="reviewConclusionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewConclusionLabel">Review conclusion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="divider-text">Conclusion Briefing</div>
+                    <span id="conclusionContent"></span>
+                    <hr>
+                    <form id="fmReviewConclusion" method="post" th:action="@{/reviewconclusion}">
+                        <input type="hidden" name="taskId" id="reviewConclusionTaskId" />
+                        <div class="form-group">
+                            <label for="reviewConclusionContent" class="col-form-label">Review comment:</label>
+                            <textarea class="form-control" id="reviewConclusionContent" name="reviewConclusionContent" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnReviewConclusion">Submit review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="submitFirstDraftModal" tabindex="-1" role="dialog" aria-labelledby="submitFirstDraftLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="submitFirstDraftLabel">Submit first draft</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="fmSubmitFirstDraft" method="post" th:action="@{/submitfirstdraft}">
+                        <input type="hidden" name="taskId" id="submitFirstDraftTaskId" />
+                        <div class="form-group">
+                            <label for="submitFirstDraft" class="col-form-label">Conclusion:</label>
+                            <textarea class="form-control" id="submitFirstDraft" name="submitFirstDraft" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-file">
+                                <input disabled type="file" class="custom-file-input" id="firstDraftFile" name="firstDraftFile">
+                                <label class="custom-file-label" for="firstDraftFile">Choose first draft file</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="fmBtnSubmitFirstDraft">Submit first draft</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </th:block>
 
 </body>

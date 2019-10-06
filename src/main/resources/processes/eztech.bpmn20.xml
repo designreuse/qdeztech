@@ -13,9 +13,9 @@
         <sequenceFlow id="sid-7AEFB118-FD01-460A-AA0D-0810AEADEE91" sourceRef="acceptProject" targetRef="submitTopic"></sequenceFlow>
         <userTask id="reviewTopic" name="Review topic" flowable:formFieldValidation="true"></userTask>
         <sequenceFlow id="sid-4FEF9EE6-3135-4D61-930E-155AE9DA17D4" sourceRef="submitTopic" targetRef="reviewTopic"></sequenceFlow>
-        <userTask id="submitProposal" name="Submit proposal" flowable:formFieldValidation="true"></userTask>
+        <userTask id="submitProposal" name="Waiting for proposal submission" flowable:formFieldValidation="true"></userTask>
         <sequenceFlow id="sid-EDD1B31E-C7C3-44B3-B4E5-CB1268916A4D" sourceRef="reviewTopic" targetRef="submitProposal"></sequenceFlow>
-        <userTask id="reviewProposal" name="Review proposal" flowable:formFieldValidation="true"></userTask>
+        <userTask id="reviewProposal" name="Pending review proposal" flowable:formFieldValidation="true"></userTask>
         <sequenceFlow id="sid-D833871C-1FCA-4F5F-9995-17B7D71EC1EB" sourceRef="submitProposal" targetRef="reviewProposal"></sequenceFlow>
         <userTask id="submitResearchMethod" name="Submit research method" flowable:formFieldValidation="true"></userTask>
         <sequenceFlow id="sid-462B7B07-2D5F-4DD5-AD05-4997527B3440" sourceRef="reviewProposal" targetRef="submitResearchMethod"></sequenceFlow>
@@ -31,10 +31,10 @@
         <sequenceFlow id="sid-97AB8806-0F1F-47CD-BDAD-5F505855F886" sourceRef="analysisData" targetRef="reviewDataResult"></sequenceFlow>
         <userTask id="discussAndConclusion" name="Conclusion" flowable:formFieldValidation="true"></userTask>
         <sequenceFlow id="sid-C4D1E2AC-166D-45D8-B9D9-EDCFB291FD25" sourceRef="reviewDataResult" targetRef="discussAndConclusion"></sequenceFlow>
-        <userTask id="reviewContlusion" name="Review Conclusion" flowable:formFieldValidation="true"></userTask>
-        <sequenceFlow id="sid-B6CB8634-D81F-4A94-AEEE-9AE816519553" sourceRef="discussAndConclusion" targetRef="reviewContlusion"></sequenceFlow>
+        <userTask id="reviewConclusion" name="Review Conclusion" flowable:formFieldValidation="true"></userTask>
+        <sequenceFlow id="sid-B6CB8634-D81F-4A94-AEEE-9AE816519553" sourceRef="discussAndConclusion" targetRef="reviewConclusion"></sequenceFlow>
         <userTask id="submitFirstDraft" name="Submit first draft" flowable:formFieldValidation="true"></userTask>
-        <sequenceFlow id="sid-F5034AD8-2DD0-4ACE-B060-2230D5DAA66E" sourceRef="reviewContlusion" targetRef="submitFirstDraft"></sequenceFlow>
+        <sequenceFlow id="sid-F5034AD8-2DD0-4ACE-B060-2230D5DAA66E" sourceRef="reviewConclusion" targetRef="submitFirstDraft"></sequenceFlow>
         <userTask id="reviewFirstDraft" name="Review first draft" flowable:formFieldValidation="true"></userTask>
         <sequenceFlow id="sid-AA9534D3-7AA4-4F3B-A0C7-C7707AFE31AB" sourceRef="submitFirstDraft" targetRef="reviewFirstDraft"></sequenceFlow>
         <userTask id="submit2ndDraft" name="Submit 2nd draft" flowable:formFieldValidation="true"></userTask>
@@ -97,7 +97,7 @@
             <bpmndi:BPMNShape bpmnElement="discussAndConclusion" id="BPMNShape_discussAndConclusion">
                 <omgdc:Bounds height="80.0" width="100.0" x="870.0" y="360.0"></omgdc:Bounds>
             </bpmndi:BPMNShape>
-            <bpmndi:BPMNShape bpmnElement="reviewContlusion" id="BPMNShape_reviewContlusion">
+            <bpmndi:BPMNShape bpmnElement="reviewConclusion" id="BPMNShape_reviewContlusion">
                 <omgdc:Bounds height="80.0" width="100.0" x="1020.0" y="360.0"></omgdc:Bounds>
             </bpmndi:BPMNShape>
             <bpmndi:BPMNShape bpmnElement="submitFirstDraft" id="BPMNShape_submitFirstDraft">

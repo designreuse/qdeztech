@@ -12,9 +12,11 @@ import org.flowable.engine.RepositoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.TaskService;
 import org.flowable.engine.runtime.ProcessInstance;
+import org.flowable.idm.api.Privilege;
 import org.flowable.idm.api.User;
 import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,13 +48,29 @@ public class DashboardController {
 
         // Get list of projects I'm working on
         String userId = principal.getName();
-        List<ProcessInstance> instanceList = runtimeService
-                .createProcessInstanceQuery()
-                .processDefinitionKey("eztech")
-                .includeProcessVariables()
-                .startedBy(userId)
-                .orderByStartTime().desc()
-                .list();
+        Privilege privilege = privilegeService.getPrivilegeByUserName(userId);
+
+        List<ProcessInstance> instanceList = new ArrayList<>();
+
+        if(privilege.getName().equalsIgnoreCase("ROLE_REST")){
+            instanceList = runtimeService
+                    .createProcessInstanceQuery()
+                    .processDefinitionKey("eztech")
+                    .includeProcessVariables()
+                    .startedBy(userId)
+                    .orderByStartTime().desc()
+                    .list();
+        }else if(privilege.getName().equalsIgnoreCase("ROLE_STUDENT")){
+            instanceList = runtimeService
+                    .createProcessInstanceQuery()
+                    .processDefinitionKey("eztech")
+                    .includeProcessVariables()
+                    .variableValueEquals("studentid", principal.getName())
+                    .orderByStartTime().desc()
+                    .list();
+        }
+
+
 
         List<ProjectDto> projectDtos = new ArrayList<>();
         instanceList.forEach(processInstance -> {
@@ -74,8 +92,14 @@ public class DashboardController {
         model.addAttribute("projectList", projectDtos);
         model.addAttribute("projectCnt", projectDtos.size());
 
-        // Get Activities
-        List<ActionLog> actionLogs = actionLogService.getActionLogsByOwner(userId);
+        // Get Activities log
+        List<ActionLog> actionLogs = new ArrayList<>();
+        if(privilege.getName().equalsIgnoreCase("ROLE_REST")){
+            actionLogs = actionLogService.getActionLogsByOwner(userId);
+
+        }else if(privilege.getName().equalsIgnoreCase("ROLE_STUDENT")){
+            actionLogs = actionLogService.getActionLogsByLogger(userId);
+        }
         model.addAttribute("activities", actionLogs);
 
         // Get all students

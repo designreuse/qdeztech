@@ -47,4 +47,27 @@ public class EZTechProjectWorkflowService {
     }
 
 
+    /**
+     * Get process starter id (owner id)
+     * @param processInstanceId
+     * @return
+     */
+    public String getStarterByProcessId(String processInstanceId){
+
+        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
+                .processInstanceId(processInstanceId)
+                .singleResult();
+        return processInstance.getStartUserId();
+    }
+
+    /**
+     * Get task by task id
+     * @param taskId
+     * @return
+     */
+    public Task getTaskById(String taskId){
+        return taskService.createTaskQuery().taskId(taskId).includeProcessVariables().singleResult();
+    }
+
+
 }
